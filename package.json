@@ -9,11 +9,12 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@primevue/themes": "^4.0.0",
+        "@primevue/themes": "^4.2.5",
+        "gsap": "^3.12.5",
         "moment": "^2.30.1",
         "pinia": "^2.1.7",
         "primeicons": "^7.0.0",
-        "primevue": "^4.1.0",
+        "primevue": "^4.2.5",
         "sweetalert2": "^11.12.3",
         "tailwindcss-primeui": "^0.3.4",
         "vue": "^3.4.29",

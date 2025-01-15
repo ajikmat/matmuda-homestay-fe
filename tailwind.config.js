@@ -2,6 +2,13 @@
 export default {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './src/*/.{vue,js,ts,jsx,tsx}'],
     theme: {
+        container: {
+            center: true,
+            padding: '2rem',
+            screens: {
+                '2xl': '1400px',
+            },
+        },
         extend: {
             colors: {
                 primary: {
@@ -33,5 +40,5 @@ export default {
             },
         },
     },
-    plugins: [require('tailwindcss-primeui'), require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [import('tailwindcss-primeui'), import('@tailwindcss/forms'), import('@tailwindcss/typography')],
 };

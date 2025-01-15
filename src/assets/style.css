@@ -50,7 +50,7 @@ body {
 
 @layer utilities {
     .card {
-        @apply bg-white rounded-md border border-surface-300/50;
+        @apply bg-white rounded-md border;
         box-shadow: rgba(36, 68, 113, 0.1) 0px 10px 10px -10px;
     }
 
@@ -80,7 +80,7 @@ body {
     }
 }
 
-.swal2-title {
+/* .swal2-title {
     @apply text-base text-surface-600 font-medium;
 }
 
@@ -92,4 +92,4 @@ body {
 .p-popover:before {
     display: none;
     margin-top: 0px;
-}
+} */

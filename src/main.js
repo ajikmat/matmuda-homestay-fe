@@ -6,6 +6,7 @@ import { createApp } from 'vue';
 
 import App from './App.vue';
 import router from './router';
+import { initComponent } from './utils/init-component';
 
 const app = createApp(App);
 

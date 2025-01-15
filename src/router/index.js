@@ -2,7 +2,25 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes: [],
+    routes: [
+        {
+            path: '/',
+            redirect: { name: 'home' },
+            component: () => import('@/layout/MainLayout.vue'),
+            children: [
+                {
+                    path: '/',
+                    name: 'home',
+                    component: () => import('@/views/HomeViews.vue'),
+                },
+                {
+                    path: 'mat-muda-cottage',
+                    name: 'mat-muda-cottage',
+                    component: () => import('@/views/homestay/MudaMudaCottageView.vue'),
+                },
+            ],
+        },
+    ],
 });
 
 router.beforeResolve((to, from, next) => {
