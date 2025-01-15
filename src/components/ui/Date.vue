@@ -22,7 +22,6 @@
             :inline="inline"
             :view="view"
             v-model="dates"
-            inputClass="border-none p-0 hover:bg-gray-200 "
             selectionMode="range"
             :manualInput="false"
             :placeholder="placeholder"
