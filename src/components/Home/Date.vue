@@ -2,13 +2,10 @@
     <button
         type="button"
         @click="toggle"
-        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 w-1/4 rounded-lg"
+        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 w-full rounded-lg"
     >
-        <div class="flex flex-col">
-            <div class="flex space-x-2 mb-1">
-                <div class="font-bold text-black">Check-In</div>
-                <div class="font-bold text-black">Check-Out</div>
-            </div>
+        <div class="flex flex-col items-start">
+            <div class="font-bold text-black mb-1">Check-In / Check-Out</div>
 
             <div class="flex items-center w-full">
                 <i class="pi pi-calendar text-2xl text-gray-600 mr-2"></i>
@@ -29,7 +26,7 @@
             v-model="dates"
             selectionMode="range"
             :manualInput="false"
-            :placeholder="placeholder"
+            placeholder="Pick a Date"
         />
     </Popover>
 </template>
@@ -46,21 +43,22 @@ export default {
     methods: {
         toggle(event) {
             this.$refs.op.toggle(event);
-            if (this.dates === null || this.dates === 0) {
-                return;
-            }
+
             this.$emit('date-input', this.dateBelow);
         },
     },
     computed: {
-        placeholder() {
-            return 'Pick a Date';
-        },
         formatedDate() {
             if (this.dates && this.dates.length === 2) {
                 const [start, end] = this.dates;
 
-                return `${start ? start.toLocaleDateString() : ''} - ${end ? end.toLocaleDateString() : ''}`;
+                const options = { year: 'numeric', month: 'short', day: 'numeric' };
+
+                const formatter = new Intl.DateTimeFormat('en-US', options);
+                if (end) {
+                    return `${formatter.format(start)} - ${formatter.format(end)}`;
+                }
+                return `${formatter.format(start)}`;
             }
 
             return 'Pick a date';

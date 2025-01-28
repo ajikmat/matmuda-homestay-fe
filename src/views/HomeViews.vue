@@ -1,8 +1,6 @@
 <template>
     <main class="flex flex-col mb-12">
-        <section
-            class="relative bg-fixed bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat"
-        >
+        <section :class="`relative bg-fixed ${backgroundChange} bg-cover bg-center bg-no-repeat`">
             <div class="absolute inset-0 bg-black/55"></div>
 
             <div class="relative mx-auto max-w-screen-xl px-4 sm:px-6 lg:flex h-[500px] lg:items-center lg:px-8">
@@ -25,8 +23,8 @@
 
             <div class="mx-auto container absolute -bottom-14 inset-x-0 px-20">
                 <div class="shadow-lg rounded-lg border h-[100px] bg-clip-padding bg-white items-center">
-                    <div class="flex items-center justify-center gap-4 p-6">
-                        <SelectPlace @selected-place="selectedPlace"></SelectPlace>
+                    <div class="grid grid-cols-4 items-center justify-center gap-4 p-6">
+                        <SelectPlace @selected-place="selectedPlace" @background-change=""></SelectPlace>
                         <Guest @adult-input="adultInput" @child-input="childInput"></Guest>
                         <Date @date-input="dateInput"></Date>
                         <BookNow
@@ -139,6 +137,7 @@ import banners from '@/data/banner';
 export default {
     data() {
         return {
+            bgURl: 'bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)]',
             placeValue: '',
             adultValue: 0,
             childValue: 0,
@@ -155,6 +154,23 @@ export default {
     computed: {
         banners() {
             return banners;
+        },
+        backgroundChange() {
+            if (this.placeValue === '') {
+                return this.bgURl;
+            }
+            if (this.placeValue === 'Muda cottage') {
+                return (this.bgURl =
+                    'bg-[url(https://firebasestorage.googleapis.com/v0/b/matmuda-homestay.appspot.com/o/discover%2Fmuda-cottage-banner.JPG?alt=media)]');
+            }
+            if (this.placeValue === 'aDLi.suite') {
+                return (this.bgURl =
+                    'bg-[url(https://firebasestorage.googleapis.com/v0/b/matmuda-homestay.appspot.com/o/discover%2Fadli-suite-banner.JPG?alt=media)]');
+            }
+            if (this.placeValue === "d'Arif Homestay") {
+                return (this.bgURl =
+                    'bg-[url(https://firebasestorage.googleapis.com/v0/b/matmuda-homestay.appspot.com/o/discover%2Fd-arif-homestay-banner.jpg?alt=media)]');
+            }
         },
     },
     methods: {

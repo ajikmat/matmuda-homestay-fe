@@ -2,12 +2,12 @@
     <button
         type="button"
         @click="toggle"
-        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 w-1/4 rounded-lg"
+        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 w-full rounded-lg"
     >
         <div class="font-bold text-black">Place</div>
         <div class="flex mt-1 space-x-2 items-center">
             <i class="pi pi-home text-2xl"></i>
-            <div class="">{{ selectedPlace ? selectedPlace.name : 'Select Place' }}</div>
+            <div>{{ selectedPlace ? selectedPlace.name : 'Select Place' }}</div>
         </div>
     </button>
 
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-    emits: ['selected-place'],
+    emits: ['selected-place', 'background-change'],
     data() {
         return {
             selectedPlace: null,
@@ -73,6 +73,7 @@ export default {
             this.selectedPlace = place;
             this.$refs.op.hide();
             this.$emit('selected-place', place.name);
+            this.$emit('background-change', place.name);
         },
     },
 };

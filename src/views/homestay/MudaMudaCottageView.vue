@@ -2,7 +2,7 @@
     <main class="flex flex-col mb-12">
         <section class="relative bg-zinc-100 border-b">
             <img
-                src="https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                src="https://firebasestorage.googleapis.com/v0/b/matmuda-homestay.appspot.com/o/discover%2Fmuda-cottage-banner.JPG?alt=media"
                 alt="image"
                 class="object-cover w-full h-[500px]"
             />
@@ -151,9 +151,9 @@
                             </div>
 
                             <div class="space-y-2 mt-2">
-                                <HomeDate></HomeDate>
-                                <HomeGuest></HomeGuest>
-                                <HomeBooknow></HomeBooknow>
+                                <Guest></Guest>
+                                <Date></Date>
+                                <BookNow></BookNow>
                             </div>
                         </div>
                     </div>
@@ -227,7 +227,7 @@
                     <div class="font-bold text-3xl">Where you`ll be</div>
                     <div>Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                 </div>
-                <div class="h-[500px]">
+                <div class="h-[400px]">
                     <!-- <Maps></Maps> -->
                 </div>
             </div>
@@ -279,13 +279,14 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
-import HomeGuest from '@/components/Homestay/HomeGuest.vue';
 import HomeDate from '@/components/Homestay/HomeDate.vue';
 import OverallRating from '@/components/Homestay/OverallRating.vue';
 import Maps from '@/components/Homestay/Maps.vue';
-import HomeBooknow from '@/components/Homestay/HomeBooknow.vue';
 import CarouselHome from '@/components/Homestay/CarouselHome.vue';
 import ButtonReview from '@/components/Homestay/ButtonReview.vue';
+import Guest from '@/components/Home/Guest.vue';
+import BookNow from '@/components/Home/BookNow.vue';
+import Date from '@/components/Home/Date.vue';
 
 export default {
     data() {
@@ -348,11 +349,12 @@ export default {
         });
     },
     components: {
-        HomeGuest,
         HomeDate,
         OverallRating,
         Maps,
-        HomeBooknow,
+        BookNow,
+        Guest,
+        Date,
     },
     created() {
         this.loadReviews();
@@ -364,7 +366,9 @@ export default {
 
             const overrall = totalRating / allValue.length;
 
-            return overrall;
+            const formattedNum = parseFloat(overrall.toFixed(2));
+
+            return formattedNum;
         },
     },
     methods: {
