@@ -2,9 +2,9 @@
     <button
         type="button"
         @click="toggle"
-        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 w-1/4 rounded-lg"
+        class="bg-white text-gray-600 hover:bg-gray-200 flex flex-col item-start border px-4 py-2 rounded-lg w-full"
     >
-        <div class="flex flex-col items-start item-center">
+        <div class="flex flex-col items-start">
             <div class="font-bold text-black mb-1">Guest</div>
             <div class="flex item-center space-x-2">
                 <i class="pi pi-users text-2xl"></i>

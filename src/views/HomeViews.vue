@@ -26,14 +26,15 @@
             <div class="mx-auto container absolute -bottom-14 inset-x-0 px-20">
                 <div class="shadow-lg rounded-lg border h-[100px] bg-clip-padding bg-white items-center">
                     <div class="flex items-center justify-center gap-4 p-6">
-                        <SelectPlace></SelectPlace>
-                        <Guest></Guest>
-                        <Date></Date>
-                        <button
-                            class="bg-purple-700 hover:bg-purple-400 hover:text-purple-700 text-purple-100 rounded-lg font-bold text-center py-6 px-4 w-1/3"
-                        >
-                            Book now
-                        </button>
+                        <SelectPlace @selected-place="selectedPlace"></SelectPlace>
+                        <Guest @adult-input="adultInput" @child-input="childInput"></Guest>
+                        <Date @date-input="dateInput"></Date>
+                        <BookNow
+                            :date="dateValue"
+                            :adult="adultValue"
+                            :child="childValue"
+                            :place="placeValue"
+                        ></BookNow>
                     </div>
                 </div>
             </div>
@@ -128,23 +129,50 @@
 </template>
 
 <script>
-import CarouselReview from '@/components/ui/CarouselReview.vue';
-import Date from '@/components/ui/Date.vue';
-import SelectPlace from '@/components/ui/SelectPlace.vue';
-import Guest from '@/components/ui/Guest.vue';
-
+import CarouselReview from '@/components/Home/CarouselReview.vue';
+import Date from '@/components/Home/Date.vue';
+import SelectPlace from '@/components/Home/SelectPlace.vue';
+import Guest from '@/components/Home/Guest.vue';
+import BookNow from '@/components/Home/BookNow.vue';
 import banners from '@/data/banner';
 
 export default {
+    data() {
+        return {
+            placeValue: '',
+            adultValue: 0,
+            childValue: 0,
+            dateValue: '',
+        };
+    },
     components: {
         CarouselReview,
         Date,
         SelectPlace,
         Guest,
+        BookNow,
     },
     computed: {
         banners() {
             return banners;
+        },
+    },
+    methods: {
+        selectedPlace(selectedplace) {
+            const placeValue = selectedplace;
+            this.placeValue = placeValue;
+        },
+        adultInput(adultInput) {
+            const adultValue = adultInput;
+            this.adultValue = adultValue;
+        },
+        childInput(childInput) {
+            const childValue = childInput;
+            this.childValue = childValue;
+        },
+        dateInput(dayNum) {
+            const dateValue = dayNum;
+            this.dateValue = dateValue;
         },
     },
 };

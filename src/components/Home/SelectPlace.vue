@@ -42,6 +42,7 @@
 
 <script>
 export default {
+    emits: ['selected-place'],
     data() {
         return {
             selectedPlace: null,
@@ -71,6 +72,7 @@ export default {
         selectPlace(place) {
             this.selectedPlace = place;
             this.$refs.op.hide();
+            this.$emit('selected-place', place.name);
         },
     },
 };
