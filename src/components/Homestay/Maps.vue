@@ -30,11 +30,11 @@ export default {
                 .load()
                 .then(async () => {
                     this.map = await new google.maps.Map(mapElement, {
-                        center: { lat: 5.323709776048266, lng: 103.09215186651072 },
+                        center: { lat: 5.323467789044505, lng: 103.09215669598144 },
                         zoom: 15,
                     });
 
-                    this.addMarker({ lat: 5.323709776048266, lng: 103.09215186651072 });
+                    this.addMarker({ lat: 5.323467789044505, lng: 103.09215669598144 });
                 })
                 .catch((error) => {
                     console.error('Error loading Google Maps API:', error);

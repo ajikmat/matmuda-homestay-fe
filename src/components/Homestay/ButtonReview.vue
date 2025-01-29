@@ -203,6 +203,11 @@ export default {
                 email: this.email.val,
                 review: this.review.val,
                 date: this.formattedDate,
+                clean: this.cleanliness.val,
+                locations: this.locations.val,
+                accuracy: this.accuracy.val,
+                checkin: this.checkIn.val,
+                communication: this.communication.val,
             };
 
             this.$emit('save-data', formData);

@@ -113,29 +113,34 @@
                                 <div
                                     class="col-span-1 h-20 w-full rounded-md flex items-center justify-center space-x-4"
                                 >
-                                    <i class="pi pi-sign-in text-2xl"></i>
-                                    <div>Check-In</div>
+                                    <img class="w-7" src="../../assets/children.svg" alt="child" />
+                                    <div>Children and beds</div>
                                 </div>
-                                <div class="h-20 col-span-3 flex flex-col items-start">
-                                    <div class="font-medium">From 14:00 to 00:00</div>
-                                    <div>
-                                        Guests are required to show a photo identification and credit card upon check-in
-                                        You'll need to let the property know in advance what time you'll arrive.
-                                    </div>
+                                <div class="h-20 col-span-3 flex flex-col justify-center items-start my-5">
+                                    <div class="font-medium">Child policies</div>
+                                    <div>Children are allowed.</div>
+                                    <div class="font-medium">Cot and extra bed policies</div>
+                                    <div>Cots and extra beds are available at this property.</div>
                                 </div>
                                 <hr class="col-span-4" />
                                 <div
                                     class="col-span-1 h-20 w-full rounded-md flex items-center justify-center space-x-4"
                                 >
-                                    <i class="pi pi-sign-in text-2xl"></i>
-                                    <div>Check-In</div>
+                                    <img src="../../assets/user.svg" alt="user" />
+                                    <div>No age restriction</div>
                                 </div>
-                                <div class="h-20 col-span-3 flex flex-col items-start">
-                                    <div class="font-medium">From 14:00 to 00:00</div>
-                                    <div>
-                                        Guests are required to show a photo identification and credit card upon check-in
-                                        You'll need to let the property know in advance what time you'll arrive.
-                                    </div>
+                                <div class="h-20 col-span-3 flex flex-col items-start justify-center">
+                                    <div>There is no age requirement for check-in</div>
+                                </div>
+                                <hr class="col-span-4" />
+                                <div
+                                    class="col-span-1 h-20 w-full rounded-md flex items-center justify-center space-x-4"
+                                >
+                                    <img class="w-7" src="../../assets/smoking.svg" alt="smoking" />
+                                    <div>Smoking</div>
+                                </div>
+                                <div class="h-20 col-span-3 flex flex-col items-start justify-center">
+                                    <div>Smoking is not allowed.</div>
                                 </div>
                                 <hr class="col-span-4" />
                             </div>
@@ -225,10 +230,24 @@
             <div class="container mx-auto py-20 flex flex-col border-b">
                 <div class="mb-10">
                     <div class="font-bold text-3xl">Where you`ll be</div>
-                    <div>Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
+                    <div class="text-gray-500 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing.</div>
                 </div>
-                <div class="h-[400px]">
-                    <!-- <Maps></Maps> -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="col-span-2 h-[400px]">
+                        <Maps></Maps>
+                    </div>
+                    <div class="col-span-1">
+                        <div class="flex flex-col justify-center items-center">
+                            <div class="font-bold text-3xl tracking-wide pt-36 mb-5">Address</div>
+                            <div class="w-[300px] h-[250px] ml-10 flex">
+                                <div><i class="pi pi-map-marker text-xl pr-4 pt-2"></i></div>
+                                <div class="text-lg text-gray-500">
+                                    107, T53, Kampung Sekati, 21200 Kuala Terengganu, Terengganu, Malaysia
+                                    <ButtonCopy></ButtonCopy>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -263,7 +282,8 @@
                     >
                 </div>
                 <div>
-                    <CarouselHome :reviewsData="results"></CarouselHome>
+                    <Skeleton v-if="isLoading" width="1000px" height="300px"></Skeleton>
+                    <CarouselHome></CarouselHome>
                 </div>
                 <div class="mt-10">
                     <ButtonReview @save-data="saveData"></ButtonReview>
@@ -279,7 +299,6 @@ import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
-import HomeDate from '@/components/Homestay/HomeDate.vue';
 import OverallRating from '@/components/Homestay/OverallRating.vue';
 import Maps from '@/components/Homestay/Maps.vue';
 import CarouselHome from '@/components/Homestay/CarouselHome.vue';
@@ -287,14 +306,14 @@ import ButtonReview from '@/components/Homestay/ButtonReview.vue';
 import Guest from '@/components/Home/Guest.vue';
 import BookNow from '@/components/Home/BookNow.vue';
 import Date from '@/components/Home/Date.vue';
+import ButtonCopy from '@/components/Home/ButtonCopy.vue';
 
 export default {
     data() {
         return {
-            val: null,
+            isLoading: false,
             dataStore: useReviewStore(),
             results: [],
-            disabled: true,
             visible: false,
             value: 5,
             activeIndex: 0,
@@ -338,29 +357,25 @@ export default {
             ],
         };
     },
-    mounted() {
-        gsap.to(this.$refs.scrollTrigger, {
-            y: 1130,
-            scrollTrigger: {
-                trigger: this.$refs.box,
-                start: '200px top',
-                scrub: true,
-            },
-        });
-    },
+
     components: {
-        HomeDate,
         OverallRating,
         Maps,
         BookNow,
         Guest,
         Date,
+        CarouselHome,
+        ButtonReview,
+        ButtonCopy,
     },
+
     created() {
         this.loadReviews();
     },
+
     computed: {
         overRating() {
+            this.results = this.dataStore.AllReviews;
             const allValue = this.results.map((result) => result.value);
             const totalRating = allValue.reduce((acc, curr) => acc + curr, 0);
 
@@ -379,31 +394,8 @@ export default {
             this.visible = true;
             this.activeIndex = value;
         },
-        async loadReviews() {
-            const response = await fetch(
-                `https://muda-homestay-default-rtdb.asia-southeast1.firebasedatabase.app/reviews.json`,
-            );
-
-            const responseData = await response.json();
-
-            if (!response.ok) {
-                //error
-            }
-            const reviews = [];
-
-            for (const key in responseData) {
-                const review = {
-                    name: responseData[key].name,
-                    email: responseData[key].email,
-                    date: responseData[key].date,
-                    value: responseData[key].rating,
-                    description: responseData[key].review,
-                };
-
-                reviews.push(review);
-            }
-
-            this.results = reviews;
+        loadReviews() {
+            this.dataStore.AllReviews;
         },
     },
 };
