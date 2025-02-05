@@ -93,7 +93,7 @@ export default {
                 }
                 return `${formatter.format(start)}`;
             } else {
-                return null;
+                return '';
             }
         },
     },

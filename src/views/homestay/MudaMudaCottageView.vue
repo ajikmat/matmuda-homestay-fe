@@ -158,7 +158,12 @@
                             <div class="space-y-2 mt-2">
                                 <Guest></Guest>
                                 <Date></Date>
-                                <BookNow></BookNow>
+                                <!-- <BookNow
+                                    :date="dateValue"
+                                    :adult="adultValue"
+                                    :child="childValue"
+                                    :place="placeValue"
+                                ></BookNow> -->
                             </div>
                         </div>
                     </div>
@@ -196,7 +201,12 @@
                     </template>
                 </Galleria>
 
-                <div class="max-w-[800px] mx-auto">
+                <div class="max-w-[800px] mx-auto flex flex-col justify-center items-center">
+                    <div class="font-bold text-3xl mb-2 tracking-wide">Gallery</div>
+                    <div class="text-gray-500 text-lg text-center mb-4">
+                        Explore the charm of your home away from home through our gallery, where each picture tells a
+                        story of comfort, warmth, and unforgettable memories waiting to be made at our homestay.
+                    </div>
                     <div class="grid grid-cols-12 gap-1">
                         <div
                             v-for="(image, index) in images"
@@ -281,8 +291,7 @@
                         >About US</span
                     >
                 </div>
-                <div>
-                    <Skeleton v-if="isLoading" width="1000px" height="300px"></Skeleton>
+                <div class="container">
                     <CarouselHome></CarouselHome>
                 </div>
                 <div class="mt-10">

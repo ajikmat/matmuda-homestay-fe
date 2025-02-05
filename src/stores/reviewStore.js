@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 export const useReviewStore = defineStore('data', {
     state: () => ({
         AllReviews: [],
+        meterGroup5: [{ value: 50, color: '#34d399' }],
     }),
     getters: {},
     actions: {
@@ -49,7 +50,6 @@ export const useReviewStore = defineStore('data', {
                 };
 
                 reviews.push(review);
-                console.log(reviews);
             }
 
             this.AllReviews = reviews;

@@ -6,27 +6,32 @@
 
             <div class="font-medium">
                 5
-                <LabelFive></LabelFive>
+                <MeterGroup :value="meterGroup5" class="no-labels" />
+                {{ loadValueOne }}
             </div>
 
             <div class="font-medium">
                 4
-                <LabelFour></LabelFour>
+                <MeterGroup :value="meterGroup4" class="no-labels" />
+                {{ loadValueOne }}
             </div>
 
             <div class="font-medium">
                 3
-                <LabelThree></LabelThree>
+                <MeterGroup :value="meterGroup3" class="no-labels" />
+                {{ loadValueOne }}
             </div>
 
             <div class="font-medium">
                 2
-                <LabelTwo></LabelTwo>
+                <MeterGroup :value="meterGroup2" class="no-labels" />
+                {{ loadValueOne }}
             </div>
 
             <div class="font-medium">
                 1
-                <LabelOne></LabelOne>
+                <MeterGroup :value="meterGroup1" class="no-labels" />
+                {{ loadValueOne }}
             </div>
         </div>
         <div class="flex">
@@ -72,28 +77,21 @@
 
 <script>
 import { useReviewStore } from '@/stores/reviewStore';
-import LabelFive from './label/LabelFive.vue';
-import LabelFour from './label/LabelFour.vue';
-import LabelOne from './label/LabelOne.vue';
-import LabelThree from './label/LabelThree.vue';
-import LabelTwo from './label/LabelTwo.vue';
 
 export default {
     created() {
         this.loadReviews();
     },
 
-    components: {
-        LabelOne,
-        LabelTwo,
-        LabelThree,
-        LabelFour,
-        LabelFive,
-    },
     data() {
         return {
             reviews: [],
             dataStore: useReviewStore(),
+            meterGroup1: [{ value: 50, color: '#34d399' }],
+            meterGroup2: [{ value: 50, color: '#34d399' }],
+            meterGroup3: [{ value: 50, color: '#34d399' }],
+            meterGroup4: [{ value: 50, color: '#34d399' }],
+            meterGroup5: [{ value: 50, color: '#34d399' }],
         };
     },
 
@@ -155,6 +153,36 @@ export default {
             const formattedNum = parseFloat(total.toFixed(2));
 
             return formattedNum;
+        },
+        loadValueOne() {
+            const value = this.reviews.map((review) => review.value);
+            const count = value.reduce((acc, num) => {
+                const key =
+                    num === 5
+                        ? 'five'
+                        : num === 4
+                        ? 'four'
+                        : num === 3
+                        ? 'three'
+                        : num === 2
+                        ? 'two'
+                        : num === 1
+                        ? 'one'
+                        : num;
+                acc[key] = (acc[key] || 0) + 1;
+                return acc;
+            }, {});
+
+            const valueOne = (count.one * 100) / 5;
+            this.meterGroup1 = [{ value: valueOne, color: '#34d399' }];
+            const valueTwo = (count.two * 100) / 5;
+            this.meterGroup2 = [{ value: valueTwo, color: '#34d399' }];
+            const valueThree = (count.three * 100) / 5;
+            this.meterGroup3 = [{ value: valueThree, color: '#34d399' }];
+            const valueFour = (count.four * 100) / 5;
+            this.meterGroup4 = [{ value: valueFour, color: '#34d399' }];
+            const valueFive = (count.five * 100) / 5;
+            this.meterGroup5 = [{ value: valueFive, color: '#34d399' }];
         },
     },
 };
